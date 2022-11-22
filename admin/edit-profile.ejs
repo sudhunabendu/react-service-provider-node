@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <%- include('css-link'); -%>
+</head>
+
+<body>
+    <%- include('navbar'); -%>
+        <%- include('sidebar'); -%>
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Admin Update</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">Admin Update</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- general form elements -->
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <!-- <h3 class="card-title">Admin Update</h3> -->
+                                  </div>
+                                  <!-- /.card-header -->
+                                  <!-- form start -->
+                                  <form action="" method="POST">
+                                    <div class="card-body">
+                                      <div class="form-group">
+                                        <% if(error.name){ %>
+                                          <span style="color:red;"><%= error.name.msg %></span><br/>
+                                        <% } %>
+                                        <label for="exampleInputEmail1">Project Name</label>
+                                        <input type="text" name="name" class="form-control" value="<%= result.name %>" placeholder="Enter Project Name">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <% if(error.username){ %>
+                                          <span style="color:red;"><%= error.username.msg %></span><br/>
+                                        <% } %>
+                                        <label for="exampleInputEmail1">User Name</label>
+                                        <input type="text" name="username" class="form-control" value="<%= result.username %>" placeholder="Enter User Name">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <% if(error.email){ %>
+                                          <span style="color:red;"><%= error.email.msg %></span><br/>
+                                        <% } %>
+                                        <label for="exampleInputEmail1">Email Address</label>
+                                        <input type="email" name="email" class="form-control" value="<%= result.email %>" placeholder="Enter Email">
+                                      </div>
+
+
+                                      <div class="form-group">
+                                        <% if(error.phone){ %>
+                                          <span style="color:red;"><%= error.phone.msg %></span><br/>
+                                        <% } %>
+                                        <label for="exampleInputEmail1">Phone Number</label>
+                                        <input type="text" name="phone" class="form-control" value="<%= result.phone %>" placeholder="Enter phone">
+                                      </div>
+                                      
+                                      
+                                    </div>
+                                    <!-- /.card-body -->
+                    
+                                    <div class="card-footer">
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                  </form>
+                                </div>
+                                <!-- /.card -->        
+                              </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <%- include('js-link'); -%>
+</body>
+
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <%- include('css-link'); -%>
+</head>
+
+<body>
+  <%- include('navbar'); -%>
+    <%- include('sidebar'); -%>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <!-- <h1>Users List</h1> -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"
+                  data-whatever="@mdo">Create Service</button>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Service Tables</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <!-- <div class="card-header">
+                                        <h3 class="card-title">DataTable with default features</h3>
+                                    </div> -->
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>Sl No</th>
+                          <th>Service Name</th>
+                          <th>Category</th>
+                          <th>Service Image</th>
+                          <th>Price</th>
+                          <!-- <th>Quantity</th> -->
+                          <th>Created</th>
+                          <th>Updated</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if(services.length> 0){
+                          services.forEach((service, index) => {
+                          var todaydate = Date.now();
+                          var todatetime = Math.floor(todaydate/1000);
+                          %>
+                          <tr>
+                            <td>
+                              <%= index+1 %>
+                            </td>
+                            <td>
+                              <%= service.sv_name %>
+                            </td>
+
+                            <td>
+                                <%= service.sv_slug %>
+                              </td>
+
+                              <td align="center">
+                                <%-((service.img !=null)?'<img src="/app-property/images/uploads/services/'+service.image+'" height="50">':'No Image')-%>
+                              </td>
+                              <td>
+                                <%= Number.parseFloat(service.price).toFixed(2); %> 
+                              </td>
+
+                         
+                              
+                            <td>
+                              <!-- <%= moment(service.created_at).format('MM/DD/YYYY') %> -->
+                              <%= moment(service.created_at).format('LL') %>
+
+                            </td>
+                            <td>
+                              <%= moment(service.updated_at).format('LL') %>
+                            </td>
+                            <td>
+                              <a class="btn btn-primary" data-toggle="modal" data-target="#edit-service<%=service.cat_id %>" href="#">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </a>
+
+                              <a title="Delete" data-toggle="modal" data-target="#exampleModal<%=service.sv_id %>"
+                                href="#"><i style="color: red; cursor: pointer; font-size: 20px;" class="fa fa-trash"
+                                  aria-hidden="true"></i></a>
+
+                              <div class="modal fade" id="exampleModal<%=service.sv_id %>" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Are You Sure You Want To Delete?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                      <a type="button" href="/admin/delete-service/<%=service.sv_id %>"
+                                        class="btn btn-primary">Yes</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <!-- edit modal -->
+
+                          <div class="modal fade" id="edit-service<%=service.cat_id %>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                      <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="message-text" class="col-form-label">Message:</label>
+                                      <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Send message</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <% }); } %>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/admin/create_service" id="signupform" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Service Name:</label>
+                  <input type="text" name="sv_name"  class="form-control" id="sv_name">
+                </div>
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Service Slug:</label>
+                  <input type="text" name="sv_slug" class="form-control" id="sv_slug">
+                </div>
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Service Description:</label>
+                  <input type="text" name="sv_desc" class="form-control" id="sv_desc">
+                </div>
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Service Price:</label>
+                  <input type="text" name="price" class="form-control only_numbers" id="price">
+                </div>
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Select Category:</label>
+                  <select class="custom-select" name="cat_id" id="cat_id" >
+                    <option value="">select category</option>
+                    <% if( categories.length> 0){
+                      categories.forEach((category, index)=>{
+                      %>
+                      <option value="<%= category.cat_id %>">
+                        <%= category.cat_name %>
+                      </option>
+                      <% }) } %>
+
+                  </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Product Image:</label>
+                  <input type="file" name="image" class="form-control" id="image">
+                </div>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create</button>
+              </form>
+            </div>
+            <!-- <div class="modal-footer">
+                      
+                    </div> -->
+          </div>
+        </div>
+      </div>
+
+     
+      <%- include('js-link'); -%>
+</body>
+
+</html>

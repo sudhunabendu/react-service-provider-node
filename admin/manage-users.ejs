@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <%- include('css-link'); -%>
+</head>
+
+<body>
+    <%- include('navbar'); -%>
+        <%- include('sidebar'); -%>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Users List</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">DataTables</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- <div class="card-header">
+                                        <h3 class="card-title">DataTable with default features</h3>
+                                    </div> -->
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sl No</th>
+                                                    <th>Full Name</th>
+                                                    <th>Email Address</th>
+                                                    <th>Phone</th>
+                                                    <th>Created</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(userdetails.length > 0){ 
+                                                    userdetails.forEach((user, index) => {
+                                                      var todaydate = Date.now();
+                                                      var todatetime = Math.floor(todaydate/1000);
+                                                  %>
+                                                <tr>
+                                                    <td><%= index+1 %> </td>
+                                                    <td><%= user.first_name+' '+user.last_name %></td>
+                                                    <td><%= user.email %></td>
+                                                    <td><%= user.phone %></td>
+                                                    <td><%= moment(user.created_at).format('MM/DD/YYYY') %></td>
+                                                    <td><input name="toogle" type="checkbox" value="<%= user.id %> " <%= ((user.status == '1') ? 'checked' : '' ) %> data-on="active" data-off="inactive" data-onstyle="success"
+                                                        data-offstyle="danger" data-toggle="toggle" data-size="xs"></td>
+                                                    <td>
+                                                        <a class="btn btn-primary" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                        <a class="btn btn-danger" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <%  }); } %>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <%- include('js-link'); -%>
+
+
+            
+
+</body>
+
+</html>

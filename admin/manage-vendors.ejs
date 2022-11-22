@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <%- include('css-link'); -%>
+</head>
+
+<body>
+    <%- include('navbar'); -%>
+        <%- include('sidebar'); -%>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Vendors List</h1>
+                                <!-- <span class="date_filter">
+                                    <span id="date-label-from" class="date-label">From : </span><input autocomplete="off" class="date_range_filter date" type="text" id="datepicker_from" />
+                                    <span id="date-label-to" class="date-label">To : </span><input autocomplete="off" class="date_range_filter date" type="text" id="datepicker_to" />
+                                  </span> -->
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">DataTables</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <!-- <div class="card-header">
+                                        <h3 class="card-title">DataTable with default features</h3>
+                                    </div> -->
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sl No</th>
+                                                    <th>Full Name</th>
+                                                    <th>Email Address</th>
+                                                    <th>Phone</th>
+                                                    <th>Adhar Card</th>
+                                                    <th>Voter Id</th>
+                                                    <!-- <th>Qualification Certificate</th> -->
+                                                    <th>Account Status</th>
+                                                    <th>Created</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(userdetails.length > 0){ 
+                                                    userdetails.forEach((user, index) => {
+                                                      var todaydate = Date.now();
+                                                      var todatetime = Math.floor(todaydate/1000);
+                                                  %>
+                                                <tr>
+                                                    <td><%= index+1 %> </td>
+                                                    <td><%= user.first_name+' '+user.last_name %></td>
+                                                    <td><%= user.email %></td>
+                                                    <td><%= user.phone %></td>
+                                                    <td><%= user.adharcard %></td>
+                                                    <td><%= user.voterid %></td>
+                                                    <!-- <td><%= user.quali_certificate %></td> -->
+                                                    
+                                                        <td class="col-md-2">
+                                                            <select name="acc_status" data-id="<%= user.id %> " class="custom-select">
+                                                                <option selected>Select Status</option>
+                                                                <option value="Admin Review" <%= (user.acc_status == 'Admin Review') ? 'selected' : '' %> >Admin Review</option>
+                                                                <option value="Admin Action" <%= (user.acc_status == 'Admin Action') ? 'selected' : '' %>>Admin Action</option>
+                                                                <option value="Admin Suspend" <%= (user.acc_status == 'Admin Suspend') ? 'selected' : '' %>>Admin Suspend</option>
+                                                              </select>
+                                                        </td>
+                                                    
+                                                    
+                                                    <td><%= moment(user.created_at).format('MM/DD/YYYY') %></td>
+                                                    <td>
+                                                        <a class="btn btn-primary" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                        <a class="btn btn-danger" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <%  }); } %>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <%- include('js-link'); -%>
+
+            <script>
+                $(document).ready(function(){
+                    $('select[name=acc_status]').change(function(){
+                        let id = $(this).data('id');
+                        let acc_status = $(this).val();
+                       // alert(acc_status);
+                       $.post("/admin/status",{acc_status:acc_status,id:id},function(data){
+                        //console.log(data);
+                        if(data === 'success'){
+                          alert("Account Update Success");
+                          window.location.href="/admin/vendors";
+                        }else{
+                          alert("somthing is error");
+                          window.location.href="/admin/vendors";
+                        }
+                       })
+                    });
+                })
+            </script>
+
+           
+</body>
+
+</html>
